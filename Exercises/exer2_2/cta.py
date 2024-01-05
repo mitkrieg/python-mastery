@@ -1,6 +1,6 @@
 import sys
 sys.path.append('/Users/mitchellkrieger/Documents/GitHub/python-mastery')
-from Exercises.ex2_1 import readrides
+from Exercises.exer2_1 import readrides
 from collections import Counter
 
 rows = readrides.read_rides_as_dict('/Users/mitchellkrieger/Documents/Github/python-mastery/Data/ctabus.csv')
