@@ -19,6 +19,8 @@ def read_rides_as_columns(filename):
             numrides.append(int(row[3]))
     return dict(routes=routes, dates=dates, daytypes=daytypes, numrides=numrides)
 
-tracemalloc.start()
-columns = read_rides_as_columns('/Users/mitchellkrieger/Documents/GitHub/python-mastery/Data/ctabus.csv')
-print(tracemalloc.get_traced_memory())
+
+if __name__ == '__main__':
+    tracemalloc.start()
+    columns = read_rides_as_columns('/Users/mitchellkrieger/Documents/GitHub/python-mastery/Data/ctabus.csv')
+    print(tracemalloc.get_traced_memory())

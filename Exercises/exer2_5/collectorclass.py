@@ -52,6 +52,23 @@ class RideData(Sequence):
                     'rides' : int(row[3])                    
                 })
 
+def read_rides_as_collector_class(filename):
+    '''
+    Read the bus ride data as collector class
+    '''
+    records = RideData()
+    with open(filename) as f:
+        rows = csv.reader(f)
+        headings = next(rows)
+        for row in rows:
+            records.append({
+                'route': row[0],
+                'date': row[1],
+                'daytype': row[2],
+                'rides': int(row[3])
+            })
+    return records
+
 if __name__ == '__main__':
 
     print('XXXXXXXX OUTPUT FROM 2-2 XXXXXXXXXXX')
