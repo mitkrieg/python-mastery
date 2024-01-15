@@ -42,3 +42,6 @@ if __name__ == '__main__':
     print(len(routeids))
     print(tracemalloc.get_traced_memory())
     tracemalloc.clear_traces()
+
+
+    
