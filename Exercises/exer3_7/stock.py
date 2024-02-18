@@ -45,6 +45,12 @@ class Stock:
     def sell(self, amt):
         self.shares -= amt
 
+    def __repr__(self) -> str:
+        return 'Stock(' + ', '.join(["'" + self.name + "'", str(self.shares), str(self.price)])  + ')'
+    
+    def __eq__(self, other):
+        return isinstance(other, Stock) and ((self.name, self.shares, self.price) == (other.name, other.shares, other.price))
+
 def read_portfolio(filename):
     records = []
     with open(filename) as f:
@@ -72,11 +78,5 @@ def print_table(data, cols):
         print(' '.join('%10s' % (getattr(d,col)) for col in cols))
 
 if __name__ == '__main__':
-    portfolio = read_portfolio('Data/portfolio.csv')
-    print(portfolio)
-    for s in portfolio:
-        print(s)
-
-    portfolio = read_portfolio('Data/portfolio.csv')
-    print_table(portfolio, ['shares','shares','price'])
+    print(repr(Stock('GOOG', 100, 490.10)))
 

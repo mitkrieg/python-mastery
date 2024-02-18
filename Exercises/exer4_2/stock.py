@@ -1,4 +1,5 @@
 import csv 
+from validate import PositiveInteger, PositiveFloat, NonEmptyString
 
 class Stock:
     _types = (str,int,float)
@@ -24,11 +25,7 @@ class Stock:
     
     @shares.setter
     def shares(self, value):
-        if not isinstance(value, int):
-            raise TypeError('Expected int')
-        elif value < 0:
-            raise ValueError('share must be >= 0')
-        self._shares = value
+        self._shares = PositiveInteger.check(value)
 
     @property
     def price(self):
@@ -36,14 +33,20 @@ class Stock:
     
     @price.setter
     def price(self, value):
-        if not isinstance(value, float):
-            raise TypeError('Expected float')
-        elif value < 0:
-            raise ValueError('price must be >= 0')
-        self._price = value
+        self._price = PositiveFloat.check(value)
+
+    # @name.setter 
+    # def name(self, value):
+    #     self._name = NonEmptyString.check(value)
     
     def sell(self, amt):
         self.shares -= amt
+
+    def __repr__(self) -> str:
+        return 'Stock(' + ', '.join(["'" + self.name + "'", str(self.shares), str(self.price)])  + ')'
+    
+    def __eq__(self, other):
+        return isinstance(other, Stock) and ((self.name, self.shares, self.price) == (other.name, other.shares, other.price))
 
 def read_portfolio(filename):
     records = []
@@ -72,11 +75,5 @@ def print_table(data, cols):
         print(' '.join('%10s' % (getattr(d,col)) for col in cols))
 
 if __name__ == '__main__':
-    portfolio = read_portfolio('Data/portfolio.csv')
-    print(portfolio)
-    for s in portfolio:
-        print(s)
-
-    portfolio = read_portfolio('Data/portfolio.csv')
-    print_table(portfolio, ['shares','shares','price'])
+    print(repr(Stock('GOOG', 100, 490.10)))
 
